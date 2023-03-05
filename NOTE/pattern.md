@@ -1,5 +1,6 @@
 # 정규 표현식 패턴
-패턴에는 검색하고 싶은 문자열을 지정한다. 이 때 문자열의 따옴표는 생략한다. 따옴표를 포함하면 따옴표까지 검색한다. 패턴은 특별한 의미를 가지는 메타문자 또는 기호로 표현한다. 
+검색하고 싶은 문자열을 세세하게 지정해서 조회 할 수 있다. 
+이 때 문자열의 따옴표는 생략한다. 따옴표를 포함하면 따옴표까지 검색한다. 패턴은 특별한 의미를 가지는 메타문자 또는 기호로 표현한다. 
 </br>
 
 ## Character classes
@@ -49,25 +50,6 @@ console.log(text.match(regexp))
 ```
 </br>
 
-
-
-### plus +
-완전한 단어로 추출하고 싶을 때 사용한다. 
-
-<span style="color:#BFBFBF; font-size:14px;
-	  font-family: LINESeedSansKR-Bold">
-	  **EXAMPLE**
-</span>
-```js
-text = "AAA B CC D E FFFF G F WWW G Q X HH I";
-
-regexp = /C+|F+/
-
-console.log(text.match(regexp));
-// output: Array ['CC', 'FFFF', 'F']
-```
-</br>
-
 ### \\d
 \\d = [0-9]
 
@@ -99,7 +81,7 @@ console.log(text.match(regexp));
 </br>
 
 ### \\w
-알파벳 + 숫자 + _ 중의 한 문자임을 의미한다.
+'_'  포함한 영숫자을 의미한다.
 한글은 미포함.
 
 <span style="color:#BFBFBF; font-size:14px;
@@ -209,8 +191,9 @@ console.log(text.match(regexp));
 ```
 </br>
 
-### Vertical Bar x|y
-x 또는 y 값을 찾을 수 있다.
+### vertical bar x|y
+x 또는 y 값을 찾을 수 있다. 
+가장 먼저 찾는 것을 반환한다.
 
 <span style="color:#BFBFBF; font-size:14px;
 	  font-family: LINESeedSansKR-Bold">
@@ -231,6 +214,7 @@ console.log(text.match(regexp));
 
 ## Assertions
 행이나 단어의 시작 · 끝을 나타내는 경계와 어떤 식으로든 매치가 가능한 것을 나타내는 다른 패턴이 포함됩니다. 
+</br>
 
 ### \^x 
 문자열 처음에 x값을 찾을 수 있다.
@@ -252,7 +236,7 @@ console.log(text.match(regexp));
 ```
 </br>
 
-### \x$
+### x$
 문자열 마지막 x 값을 찾을 수 있다. 
 
 <span style="color:#BFBFBF; font-size:14px;
@@ -272,3 +256,119 @@ console.log(text.match(regexp));
 ```
 </br>
 
+## Quantifiers
+반복패턴 
+</br>
+### x* 
+x문자가 패턴이 일치하지 않거나 0번 이상 반복할 때 일치한다. 
+예를 들어, f를 조회했는데, f가 하나도 없으면 공백이 출력된다. 
+<mark class="hltr-neon">왜 0번 이상일까??
+</mark>
+
+<span style="color:#BFBFBF; font-size:14px;
+	  font-family: LINESeedSansKR-Bold">
+	  **EXAMPLE**
+</span>
+```js
+text = "aaa bb c ddd e";
+regexp = /a*/;
+console.log(text.match(regexp));
+// output: Array ['aaa']
+```
+</br>
+
+### plus x+
+한 번 이상 반복되는 문자를 찾는다. 
+
+<span style="color:#BFBFBF; font-size:14px;
+	  font-family: LINESeedSansKR-Bold">
+	  **EXAMPLE**
+</span>
+```js
+text = "boooo";
+regexp = /o*/;
+console.log(text.match(regexp));
+// output: Array ['']
+
+regexp = /bo*/;
+console.log(text.match(regexp));
+// output: Array ['boooo']
+
+regexp = /o+/;
+console.log(text.match(regexp));
+// output: Array ['oooo']
+```
+</br>
+
+##### 왜 0번 이상일까? 
+x+ 는 문자열에 'o'를 조회하면 'oooo'가 조회된다.
+
+x\* 는 문자열에 'o' 가 있어도  'b'로 시작하는 문자열이라서 그런가 ' ' 이 조회된다.
+x* 는 시작하는 문자열과 반복되는 문자가 일치해야 조회가 되는거 같다. 
+</br>
+
+### x{ n }
+n개 연속 일치.
+
+<span style="color:#BFBFBF; font-size:14px;
+	  font-family: LINESeedSansKR-Bold">
+	  **EXAMPLE**
+</span>
+```js
+text = "snoopy";
+regexp = /o{2}/;
+console.log(text.match(regexp));
+// output: Array ['oo']
+
+regexp = /o{3}/;
+console.log(text.match(regexp));
+// output: null
+```
+</br>
+
+### x{ n, }
+n개 <mark class="hltr-red">이상</mark> 연속 일치.
+
+<span style="color:#BFBFBF; font-size:14px;
+	  font-family: LINESeedSansKR-Bold">
+	  **EXAMPLE**
+</span>
+```js
+text = "snoopy";
+regexp = /o{1,}/;
+console.log(text.match(regexp));
+// output: Array ['oo']
+
+regexp = /o{1}/;
+console.log(text.match(regexp));
+// output: Array ['o']
+```
+</br>
+
+### x{ n,m }
+n개 이상 m개 이하 연속 일치.
+
+<span style="color:#BFBFBF; font-size:14px;
+	  font-family: LINESeedSansKR-Bold">
+	  **EXAMPLE**
+</span>
+```js
+text = "spotify";
+regexp = /o{1,3}/;
+console.log(text.match(regexp));
+// output: Array ['o']
+
+text = "spootify";
+console.log(text.match(regexp));
+// output: Array ['oo']
+
+text = "spoootify";
+console.log(text.match(regexp));
+// output: Array ['ooo']
+
+text = "spooootify";
+console.log(text.match(regexp));
+// output: Array ['ooo']
+```
+문자열 중에 m개보다 많이 반복되는 문자가 있어도, 정규표현식은 m개 이하만 조회한다. 
+에러는 발생하지 않는다.  

@@ -74,4 +74,56 @@ console.log(text.match(regexp));
 // $
 regexp = /boy$/;
 console.log(text.match(regexp));
-ㄴ;
+
+// *
+text = "boooo";
+regexp = /o*/;
+console.log(text.match(regexp));
+
+regexp = /bo*/;
+console.log(text.match(regexp));
+
+// +
+regexp = /o+/;
+console.log(text.match(regexp));
+
+// {n}
+text = "snoopy";
+regexp = /o{1,}/;
+console.log(text.match(regexp));
+
+// {n,}
+regexp = /o{1}/;
+console.log(text.match(regexp));
+
+// {n, m}
+text = "spotify";
+regexp = /o{1,3}/;
+console.log(text.match(regexp));
+
+text = "spooootify";
+console.log(text.match(regexp));
+
+// g flag
+text = `Just a simple touch and it can set you free
+We don't have to rush when you're alone with me
+I feel it coming, I feel it coming, babe`;
+regexp = /i/g;
+console.log(text.match(regexp));
+
+// i flag
+text = `Just a simple touch and it can set you free
+We don't have to rush when you're alone with me
+I feel it coming, I feel it coming, babe`;
+regexp = /I/;
+console.log(text.match(regexp));
+
+regexp = /I/gi;
+console.log(text.match(regexp));
+
+// m flag
+text = `Just a simple touch and it can set you free
+We don't have to rush when you're alone with me
+I feel it coming, I feel it coming, babe`;
+regexp = /e$/gm;
+console.log(text.match(regexp));
